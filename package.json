@@ -1,0 +1,21 @@
+{
+  "name": "pooky-playground",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "ejs": "^2.6.1",
+    "esprima": "^4.0.1",
+    "express": "^4.16.4",
+    "inquirer": "^6.2.2",
+    "js-beautify": "^1.9.1",
+    "prompt-sync": "^4.1.6"
+  }
+}
