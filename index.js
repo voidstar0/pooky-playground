@@ -7,11 +7,11 @@ const path = require('path')
 const beautify = require('js-beautify').js
 const esprima = require('esprima')
 
-const PORT = process.port || 80;
+const PORT = process.env.PORT || 80;
 
 app.engine('ejs', require('ejs').renderFile);
 app.set('view engine', 'ejs');
-app.set('views', __dirname + "/views");
+app.set('views', path.join(__dirname, 'views'));
 app.use('/assets', express.static('assets'));
 
 const loadFrom = async () => {
@@ -25,7 +25,7 @@ const loadFrom = async () => {
 
 	const location = await inquirer.prompt(locationQuestion)
 	if(location.choice === 'load from file') {
-		const files = fs.readdirSync('./assets/');
+		const files = fs.readdirSync(path.join(__dirname, 'assets'));
 		const fileQuestion = [{
 		  type: 'list',
 		  name: 'choice',
@@ -93,7 +93,7 @@ const fetchPookyFromURL = async (url) => {
 loadFrom().then(res => {
 	if(res.type === 'url') {
 		fetchPookyFromURL(res.location).then(pooky => {
-			const fileName = './assets/' + res.location.substr(res.location.indexOf('pooky.min.'))
+			const fileName = path.join(__dirname, 'assets', res.location.substr(res.location.indexOf('pooky.min.')));
 			fs.writeFile(fileName, pooky, (err) => {
 			  if (err) throw err;
 			})
@@ -109,5 +109,13 @@ loadFrom().then(res => {
 		})
 	} else {
 
+	}
+}).catch(err => {
+	switch (err.code) {
+		case 'ENOENT':
+			console.error(`Error: The file or directory ${err.path} does not exist, please create the file or directory.`);
+			break;
+		default:
+			throw err;
 	}
 })
