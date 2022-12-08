@@ -13,7 +13,7 @@
     "axios": "^0.18.1",
     "ejs": "^2.6.1",
     "esprima": "^4.0.1",
-    "express": "^4.16.4",
+    "express": "^4.18.2",
     "inquirer": "^6.2.2",
     "js-beautify": "^1.9.1",
     "prompt-sync": "^4.1.6"
